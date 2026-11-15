@@ -21,7 +21,6 @@ let currentPage = 1;
 const PER_PAGE = 15;
 
 form.addEventListener('submit', handleSubmit);
-
 loadMoreBtn.addEventListener('click', handleLoadMore);
 
 async function handleSubmit(event) {
@@ -33,7 +32,6 @@ async function handleSubmit(event) {
     iziToast.warning({
       message: 'Please enter a search query!',
     });
-
     return;
   }
 
@@ -41,7 +39,6 @@ async function handleSubmit(event) {
 
   clearGallery();
   hideLoadMoreButton();
-
   showLoader();
 
   try {
@@ -63,6 +60,8 @@ async function handleSubmit(event) {
     if (currentPage < totalPages) {
       showLoadMoreButton();
     } else {
+      hideLoadMoreButton();
+
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
       });
@@ -81,6 +80,7 @@ async function handleSubmit(event) {
 async function handleLoadMore() {
   currentPage += 1;
 
+  hideLoadMoreButton();
   showLoader();
 
   try {
@@ -96,16 +96,20 @@ async function handleLoadMore() {
       iziToast.info({
         message: "We're sorry, but you've reached the end of search results.",
       });
+    } else {
+      showLoadMoreButton();
     }
 
     const card = document.querySelector('.gallery-item');
 
-    const cardHeight = card.getBoundingClientRect().height;
+    if (card) {
+      const cardHeight = card.getBoundingClientRect().height;
 
-    window.scrollBy({
-      top: cardHeight * 2,
-      behavior: 'smooth',
-    });
+      window.scrollBy({
+        top: cardHeight * 2,
+        behavior: 'smooth',
+      });
+    }
   } catch (error) {
     iziToast.error({
       message: 'Something went wrong!',

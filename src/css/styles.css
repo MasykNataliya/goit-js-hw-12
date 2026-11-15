@@ -140,19 +140,12 @@ body {
 .loader {
   width: 48px;
   height: 48px;
-
   border: 5px solid #4e75ff;
   border-bottom-color: transparent;
   border-radius: 50%;
-
   display: block;
-  margin: 20px auto;
-
+  margin: 24px auto;
   animation: rotation 1s linear infinite;
-}
-
-.is-hidden {
-  display: none;
 }
 
 @keyframes rotation {
@@ -191,4 +184,8 @@ body {
 .load-more:hover,
 .load-more:focus {
   background-color: #6c8cff;
+}
+
+.is-hidden {
+  display: none;
 }
